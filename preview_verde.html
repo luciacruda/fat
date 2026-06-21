@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview color acento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --papel: #FAFAF8;
+      --tinta: #1C1C1A;
+      --linea: rgba(28,28,26,0.15);
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --color-a: #3D5830;
+      --color-b: #5A7242;
+      --color-c: #C4621A;
+    }
+
+    body {
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--mono);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .col {
+      flex: 1;
+      padding: 48px 36px;
+      border-right: 1px solid var(--linea);
+    }
+    .col:last-child { border-right: none; }
+
+    .col-titulo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 40px;
+    }
+
+    .muestra { margin-bottom: 28px; }
+
+    .sep { height: 1px; background: var(--linea); margin: 20px 0; }
+
+    .nav-row { display: flex; align-items: baseline; gap: 10px; padding: 4px 0; }
+
+    .filtros-row {
+      display: flex;
+      border-bottom: 1px solid var(--linea);
+      margin-bottom: 20px;
+    }
+
+    /* elementos base compartidos */
+    .nav-nombre   { font-size: 13px; opacity: 0.5; }
+    .titulo-card  { font-size: 15px; font-weight: 700; }
+    .extracto     { font-size: 13px; opacity: 0.55; margin-top: 6px; }
+    .filtro {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; background: none; border: none;
+      border-bottom: 2px solid transparent;
+      padding: 8px 14px 6px; cursor: pointer;
+      color: var(--tinta); opacity: 0.35;
+    }
+
+    /* COLUMNA A — verde bosque #3D5830 */
+    .a .sec-label    { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-a); display: block; margin-bottom: 10px; }
+    .a .eyebrow      { font-size: 11px; font-style: italic; color: var(--color-a); display: block; margin-bottom: 10px; }
+    .a .nav-num      { font-size: 10px; font-style: italic; color: var(--color-a); display: inline-block; width: 20px; }
+    .a .nav-activo   { font-size: 13px; color: var(--color-a); font-weight: 700; }
+    .a .etiqueta     { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-a); display: block; margin-bottom: 6px; }
+    .a .filtro.on    { color: var(--color-a); border-bottom-color: var(--color-a); opacity: 1; }
+    .a .prop-num     { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-a); display: block; margin-bottom: 8px; }
+
+    /* COLUMNA B — verde oliva #5A7242 */
+    .b .sec-label    { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-b); display: block; margin-bottom: 10px; }
+    .b .eyebrow      { font-size: 11px; font-style: italic; color: var(--color-b); display: block; margin-bottom: 10px; }
+    .b .nav-num      { font-size: 10px; font-style: italic; color: var(--color-b); display: inline-block; width: 20px; }
+    .b .nav-activo   { font-size: 13px; color: var(--color-b); font-weight: 700; }
+    .b .etiqueta     { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-b); display: block; margin-bottom: 6px; }
+    .b .filtro.on    { color: var(--color-b); border-bottom-color: var(--color-b); opacity: 1; }
+    .b .prop-num     { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-b); display: block; margin-bottom: 8px; }
+
+    /* COLUMNA C — naranja tagetes #C4621A */
+    .c .sec-label    { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-c); display: block; margin-bottom: 10px; }
+    .c .eyebrow      { font-size: 11px; font-style: italic; color: var(--color-c); display: block; margin-bottom: 10px; }
+    .c .nav-num      { font-size: 10px; font-style: italic; color: var(--color-c); display: inline-block; width: 20px; }
+    .c .nav-activo   { font-size: 13px; color: var(--color-c); font-weight: 700; }
+    .c .etiqueta     { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-c); display: block; margin-bottom: 6px; }
+    .c .filtro.on    { color: var(--color-c); border-bottom-color: var(--color-c); opacity: 1; }
+    .c .prop-num     { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-c); display: block; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- A: verde bosque #3D5830 -->
+  <div class="col a">
+    <p class="col-titulo">A — verde bosque · #3D5830</p>
+
+    <div class="muestra">
+      <span class="eyebrow">Fotografía Arteterapéutica</span>
+      <span class="sec-label">01 · El método</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="nav-row"><span class="nav-num">01</span><span class="nav-nombre">el método</span></div>
+      <div class="nav-row"><span class="nav-num">02</span><span class="nav-activo">propuestas</span></div>
+      <div class="nav-row"><span class="nav-num">03</span><span class="nav-nombre">sobre</span></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="filtros-row">
+        <button class="filtro on">todas</button>
+        <button class="filtro">fotografía</button>
+        <button class="filtro">FAT</button>
+      </div>
+      <span class="etiqueta">fotografía</span>
+      <p class="titulo-card">Mirar o ver</p>
+      <p class="extracto">La diferencia entre los dos no es técnica.</p>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <span class="prop-num">02.1 · FAT Inicial</span>
+      <p style="font-size:22px; font-weight:700;">La primera puerta</p>
+    </div>
+  </div>
+
+  <!-- B: verde oliva #5A7242 -->
+  <div class="col b">
+    <p class="col-titulo">B — verde oliva · #5A7242</p>
+
+    <div class="muestra">
+      <span class="eyebrow">Fotografía Arteterapéutica</span>
+      <span class="sec-label">01 · El método</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="nav-row"><span class="nav-num">01</span><span class="nav-nombre">el método</span></div>
+      <div class="nav-row"><span class="nav-num">02</span><span class="nav-activo">propuestas</span></div>
+      <div class="nav-row"><span class="nav-num">03</span><span class="nav-nombre">sobre</span></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="filtros-row">
+        <button class="filtro on">todas</button>
+        <button class="filtro">fotografía</button>
+        <button class="filtro">FAT</button>
+      </div>
+      <span class="etiqueta">fotografía</span>
+      <p class="titulo-card">Mirar o ver</p>
+      <p class="extracto">La diferencia entre los dos no es técnica.</p>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <span class="prop-num">02.1 · FAT Inicial</span>
+      <p style="font-size:22px; font-weight:700;">La primera puerta</p>
+    </div>
+  </div>
+
+  <!-- C: naranja tagetes #C4621A -->
+  <div class="col c">
+    <p class="col-titulo">C — naranja tagetes · #C4621A</p>
+
+    <div class="muestra">
+      <span class="eyebrow">Fotografía Arteterapéutica</span>
+      <span class="sec-label">01 · El método</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="nav-row"><span class="nav-num">01</span><span class="nav-nombre">el método</span></div>
+      <div class="nav-row"><span class="nav-num">02</span><span class="nav-activo">propuestas</span></div>
+      <div class="nav-row"><span class="nav-num">03</span><span class="nav-nombre">sobre</span></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <div class="filtros-row">
+        <button class="filtro on">todas</button>
+        <button class="filtro">fotografía</button>
+        <button class="filtro">FAT</button>
+      </div>
+      <span class="etiqueta">fotografía</span>
+      <p class="titulo-card">Mirar o ver</p>
+      <p class="extracto">La diferencia entre los dos no es técnica.</p>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="muestra">
+      <span class="prop-num">02.1 · FAT Inicial</span>
+      <p style="font-size:22px; font-weight:700;">La primera puerta</p>
+    </div>
+  </div>
+
+</body>
+</html>

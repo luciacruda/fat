@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotografía Arteterapéutica — FAT</title>
+  <meta name="description" content="Fotografía Arteterapéutica (FAT): un método para explorar y habitar la propia mirada desde la fotografía y la experiencia creativa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── FUENTES ── */
+    @font-face {
+      font-family: 'Cruda';
+      src: url('Cruda_font_1-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* ── VARIABLES ── */
+    :root {
+      --papel: #FAFAF8;
+      --tinta: #1C1C1A;
+      --linea: rgba(28,28,26,0.15);
+      --acento: #C4621A;
+      --sidebar: 240px;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --cruda: 'Cruda', sans-serif;
+      --papel-alt: #E8EEF2;
+      --frio: #2E4E6B;
+      --sidebar-bg: #1B3A5C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1.95;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { opacity: 0.5; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      background: #000;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('la piel, berlin.jpg') center/cover;
+      opacity: 0.75;
+      z-index: 0;
+    }
+
+    .sidebar > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar-logo {
+      display: block;
+      margin-bottom: 40px;
+      text-decoration: none;
+    }
+
+    .sidebar-logo img {
+      width: 130%;
+      margin-left: -8%;
+      display: block;
+      mix-blend-mode: normal;
+      filter: invert(1);
+    }
+    .sidebar-logo:hover { opacity: 1; }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+
+    .nav-grupo {
+      margin-bottom: 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+      padding: 5px 0;
+      line-height: 1.3;
+    }
+
+    .nav-num {
+      font-size: 10px;
+      font-style: italic;
+      color: rgba(255,255,255,0.30);
+      flex-shrink: 0;
+      width: 16px;
+    }
+
+    .nav-nombre {
+      font-size: 15px;
+      color: #fff;
+      transition: color 0.15s;
+    }
+
+    .nav-titulo .nav-nombre {
+      color: #fff;
+    }
+
+    .nav-item:hover .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-item.activo .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+    .nav-sub {
+      padding-left: 26px;
+      margin-top: 2px;
+    }
+
+    .nav-sub .nav-item {
+      padding: 5px 0;
+    }
+
+    .nav-sub .nav-nombre {
+      font-size: 14px;
+      font-style: italic;
+      color: rgba(255,255,255,0.90);
+    }
+
+    .nav-sub .nav-item:hover .nav-nombre { color: #fff; }
+
+    .sidebar-pie {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #fff;
+      line-height: 1.5;
+    }
+    .sidebar-pie .anyo {
+      font-size: 11px;
+      color: rgba(255,255,255,0.50);
+      display: block;
+      margin-top: 6px;
+    }
+
+    /* ── CONTENIDO ── */
+    .contenido {
+      margin-left: var(--sidebar);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contenedor {
+      max-width: 640px;
+      padding: 0 56px;
+    }
+
+    section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--linea);
+    }
+
+    section:nth-child(even) { background: var(--papel-alt); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── HERO ── */
+    #inicio { padding-top: 190px; padding-bottom: 100px; }
+
+    .hero-eyebrow {
+      font-size: 16px;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 40px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-titulo {
+      font-family: var(--cruda);
+      font-size: clamp(60px, 9vw, 112px);
+      font-weight: normal;
+      text-transform: uppercase;
+      line-height: 0.50;
+      margin-bottom: 40px;
+    }
+
+    .hero-separador {
+      width: 48px;
+      height: 1px;
+      background: var(--tinta);
+      margin-bottom: 40px;
+    }
+
+    .hero-texto {
+      font-size: 18px;
+      line-height: 1.95;
+      max-width: 520px;
+    }
+
+    /* ── ETIQUETA ── */
+    .sec-label {
+      font-family: var(--cruda);
+      font-size: clamp(44px, 5.5vw, 68px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 44px;
+    }
+    .sec-num {
+      font-family: var(--mono);
+      font-size: 0.38em;
+      font-weight: normal;
+      letter-spacing: 0;
+      text-transform: none;
+      opacity: 0.55;
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
+
+    /* ── TEXTO GENERAL ── */
+    .bloque-texto p {
+      font-size: 17px;
+      line-height: 1.95;
+      margin-bottom: 22px;
+      max-width: 520px;
+    }
+    .bloque-texto p:last-child { margin-bottom: 0; }
+
+    /* ── MAPA FAT ── */
+    .mapa-titulo {
+      font-family: var(--cruda);
+      font-size: clamp(40px, 5vw, 58px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--frio);
+      display: block;
+      margin-top: 72px;
+      margin-bottom: 0;
+    }
+
+    .mapa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--linea);
+      margin-top: 16px;
+    }
+
+    .mapa-paso {
+      padding: 28px 20px 28px 0;
+      border-right: 1px solid var(--linea);
+    }
+    .mapa-paso:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+    .mapa-paso:nth-child(2) { padding-left: 20px; }
+
+    .mapa-num {
+      font-size: 32px;
+      font-weight: normal;
+      line-height: 1;
+      display: block;
+      margin-bottom: 10px;
+      opacity: 0.30;
+    }
+
+    .mapa-nombre {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 14px;
+      min-height: 3.9em;
+    }
+
+    .mapa-items {
+      list-style: none;
+    }
+
+    .mapa-items li {
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.55;
+      padding: 3px 0;
+      border-bottom: 1px solid var(--linea);
+    }
+    .mapa-items li:last-child { border-bottom: none; }
+
+    /* ── PROPUESTAS ── */
+    #propuestas .contenedor { max-width: none; }
+    .propuestas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    #fat-inicial   { grid-column: 1; grid-row: 1; }
+    #sesiones      { grid-column: 2; grid-row: 1 / span 2; }
+    #proximamente  { grid-column: 1; grid-row: 2; }
+
+    .propuesta {
+      background: var(--papel-alt);
+      padding: 32px;
+    }
+
+    .propuesta-num {
+      font-size: 13px;
+      font-weight: normal;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .propuesta-titulo {
+      font-family: var(--cruda);
+      font-size: clamp(50px, 6.5vw, 76px);
+      font-weight: normal;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 14px;
+    }
+
+    .propuesta-detalle {
+      font-size: 13px;
+      font-style: italic;
+      opacity: 0.45;
+      display: block;
+      margin-bottom: 28px;
+    }
+
+    .propuesta-texto {
+      font-size: 16px;
+      line-height: 1.95;
+      margin-bottom: 18px;
+      max-width: 520px;
+    }
+    .propuesta-texto:last-of-type { margin-bottom: 0; }
+
+    .propuesta-cta {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border-bottom: 1px solid var(--tinta);
+      padding-bottom: 2px;
+      margin-top: 28px;
+    }
+
+    .proximamente-aviso {
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 28px;
+    }
+
+    /* ── FORMULARIO ── */
+    .formulario-proximamente { margin-top: 28px; }
+
+    .formulario-proximamente label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 12px;
+    }
+
+    .campo-wrap {
+      display: flex;
+      max-width: 360px;
+      border: 1px solid var(--linea);
+    }
+
+    .campo-wrap input[type="email"] {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 14px;
+      background: transparent;
+      border: none;
+      padding: 10px 14px;
+      color: var(--tinta);
+      outline: none;
+    }
+
+    .campo-wrap input[type="email"]::placeholder { opacity: 0.3; }
+
+    .campo-wrap button {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: var(--tinta);
+      color: var(--papel);
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .campo-wrap button:hover { opacity: 0.7; }
+
+    .formulario-nota {
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.35;
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* ── SOBRE ── */
+    .sobre-texto {
+      font-size: 17px;
+      line-height: 1.95;
+      margin-bottom: 20px;
+      max-width: 520px;
+    }
+
+    /* ── BLOG ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--linea);
+    }
+
+    .blog-card {
+      padding: 28px 20px 28px 0;
+      border-right: 1px solid var(--linea);
+      border-bottom: 1px solid var(--linea);
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .blog-card:hover { opacity: 0.55; }
+    .blog-card:nth-child(even) { padding-right: 0; padding-left: 20px; border-right: none; }
+    .blog-card:nth-last-child(-n+2) { border-bottom: none; }
+
+    .blog-fecha {
+      font-size: 11px;
+      font-style: italic;
+      opacity: 0.35;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .blog-titulo {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .blog-extracto {
+      font-size: 13px;
+      line-height: 1.65;
+      opacity: 0.55;
+    }
+
+    /* ── FILTROS BLOG ── */
+    .blog-filtros {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .filtro-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 12px 20px 10px;
+      cursor: pointer;
+      color: var(--tinta);
+      opacity: 0.35;
+      transition: opacity 0.15s;
+      margin-bottom: -1px;
+    }
+
+    .filtro-btn:hover { opacity: 0.7; }
+    .filtro-btn.activo { opacity: 1; color: var(--acento); border-bottom-color: var(--acento); }
+
+    .blog-card { transition: opacity 0.2s; }
+    .blog-card.oculto { display: none; }
+
+    .blog-etiqueta {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .blog-mas {
+      display: block;
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.35;
+      margin-top: 24px;
+      text-decoration: none;
+      border-top: 1px solid var(--linea);
+      padding-top: 20px;
+      text-align: center;
+    }
+    .blog-mas:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 56px;
+      border-top: 1px solid var(--linea);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .footer-nombre { font-size: 11px; font-weight: 700; opacity: 0.3; text-decoration: none; }
+
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+
+      .sidebar {
+        position: static;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+        padding: 20px 24px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar-logo { margin-bottom: 0; }
+      .sidebar-pie { display: none; }
+
+      .sidebar-nav {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .nav-grupo { margin-bottom: 0; }
+      .nav-num { display: none; }
+      .nav-sub { display: none; }
+      .nav-nombre { font-size: 12px; }
+
+      .contenido { margin-left: 0; }
+
+      .contenedor { padding: 0 24px; }
+
+      #inicio { padding-top: 64px; }
+      section { padding: 64px 0; }
+
+      .mapa-grid { grid-template-columns: 1fr; }
+      .propuestas-grid { grid-template-columns: 1fr; }
+      .mapa-paso {
+        border-right: none; border-bottom: 1px solid var(--linea);
+        padding: 24px 0;
+      }
+      .mapa-paso:last-child { border-bottom: none; padding-left: 0; }
+      .mapa-paso:nth-child(2) { padding-left: 0; }
+
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card { border-right: none; padding-right: 0; padding-left: 0; }
+      .blog-card:nth-child(even) { padding-left: 0; }
+      .blog-card:last-child { border-bottom: none; }
+
+      footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="#inicio" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+
+    <nav class="sidebar-nav">
+      <div class="nav-grupo">
+        <a href="#inicio" class="nav-item nav-titulo activo">
+          <span class="nav-num">00</span>
+          <span class="nav-nombre">inicio</span>
+        </a>
+        <a href="#metodo" class="nav-item">
+          <span class="nav-num">01</span>
+          <span class="nav-nombre">el método</span>
+        </a>
+      </div>
+
+      <div class="nav-grupo">
+        <a href="#propuestas" class="nav-item">
+          <span class="nav-num">02</span>
+          <span class="nav-nombre">propuestas</span>
+        </a>
+        <div class="nav-sub">
+          <a href="#fat-inicial" class="nav-item">
+            <span class="nav-num">—</span>
+            <span class="nav-nombre">FAT Inicial</span>
+          </a>
+          <a href="#sesiones" class="nav-item">
+            <span class="nav-num">—</span>
+            <span class="nav-nombre">sesiones 1:1</span>
+          </a>
+          <a href="#proximamente" class="nav-item">
+            <span class="nav-num">—</span>
+            <span class="nav-nombre">espacios grupales</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-grupo">
+        <a href="#sobre" class="nav-item">
+          <span class="nav-num">03</span>
+          <span class="nav-nombre">sobre</span>
+        </a>
+        <a href="blog.html" class="nav-item">
+          <span class="nav-num">04</span>
+          <span class="nav-nombre">ensayos</span>
+        </a>
+      </div>
+    </nav>
+
+    <span class="sidebar-pie">fotografía<br>arteterapéutica<span class="anyo">© 2026</span></span>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <!-- INICIO -->
+    <section id="inicio">
+      <div class="contenedor">
+        <span class="hero-eyebrow">F.A.T — Fotografía Arteterapéutica</span>
+        <h1 class="hero-titulo">Una práctica para<br>habitar la mirada</h1>
+        <div class="hero-separador"></div>
+        <p class="hero-texto">La práctica fotográfica tiene un poder que actúa por debajo, en la profundidad, en el micelio subterráneo, entretejiendo registros, incitándonos a disparar, a veces sin entender incluso por qué ni para qué. La Fotografía Arteterapéutica es el método que investiga eso: qué ocurre al crear imágenes, al volver al archivo, al encontrarse con lo que la mirada ya sabe.</p>
+      </div>
+    </section>
+
+    <!-- EL MÉTODO -->
+    <section id="metodo">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">01 ·</span> El metodo</span>
+        <div class="bloque-texto">
+          <p>La FAT parte de que el proceso fotográfico es un espacio de conocimiento interior. El foco no está en la imagen que resulta sino en lo que ocurre mientras: qué se busca, qué aparece, qué se sostiene y qué se deja ir.</p>
+          <p>Es una práctica que parte del territorio más cercano: el propio cuerpo, los espacios habitados, la experiencia que transcurre. El registro cotidiano es una forma de investigación antes de ser imagen.</p>
+          <p>El proceso se mueve por tres momentos que no son lineales: se entremezclan, se repiten, se abren en distintas direcciones según quien los habita.</p>
+        </div>
+
+        <span class="mapa-titulo">Mapa FAT</span>
+        <div class="mapa-grid">
+          <div class="mapa-paso">
+            <span class="mapa-num">01</span>
+            <span class="mapa-nombre">Crear imágenes</span>
+            <ul class="mapa-items">
+              <li>Abrir la mirada</li>
+              <li>Explorar</li>
+              <li>Investigar</li>
+              <li>Relacionarse</li>
+            </ul>
+          </div>
+          <div class="mapa-paso">
+            <span class="mapa-num">02</span>
+            <span class="mapa-nombre">Abrir conversaciones</span>
+            <ul class="mapa-items">
+              <li>Editar</li>
+              <li>Experimentar</li>
+              <li>Materializar</li>
+            </ul>
+          </div>
+          <div class="mapa-paso">
+            <span class="mapa-num">03</span>
+            <span class="mapa-nombre">Integrar</span>
+            <ul class="mapa-items">
+              <li>Reposar</li>
+              <li>Construir</li>
+              <li>Compartir</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPUESTAS -->
+    <section id="propuestas">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">02 ·</span> Propuestas</span>
+
+        <div class="propuestas-grid">
+
+        <!-- FAT INICIAL -->
+        <div class="propuesta" id="fat-inicial">
+          <span class="propuesta-num">02.1 · FAT Inicial</span>
+          <h2 class="propuesta-titulo">La primera puerta</h2>
+          <span class="propuesta-detalle">proceso individual · 5 sesiones de 60 min · semanal · online</span>
+          <p class="propuesta-texto">Hay una forma de mirar que ya existe antes de aprender técnica. El problema es que rara vez la habitamos: estamos tan ocupadas buscando la imagen correcta que no llegamos a ver lo que ya estamos viendo.</p>
+          <p class="propuesta-texto">FAT Inicial es el primer espacio para empezar a trabajar desde ahí. La puerta a ver y habitar la fotografía desde un lugar arteterapéutico.</p>
+          <a href="inicial.html" class="propuesta-cta">ver FAT Inicial →</a>
+        </div>
+
+        <!-- SESIONES 1:1 -->
+        <div class="propuesta" id="sesiones">
+          <span class="propuesta-num">02.2 · Sesiones individuales</span>
+          <h2 class="propuesta-titulo">Arteterapia fotográfica</h2>
+          <span class="propuesta-detalle">proceso individual · 5 sesiones de 60 min · online</span>
+          <p class="propuesta-texto">Las sesiones se construyen una sobre la otra, con lo que cada persona trae: imágenes, sentires, intereses, o cosas que no terminan de definirse. La constelación que va tomando forma empieza a tener un lenguaje propio.</p>
+          <p class="propuesta-texto">Antes del primer encuentro propongo un ejercicio para empezar a reflexionar, y una forma de entender qué trae a cada persona por aquí. La primera sesión es la única pautada: nos encontramos, vemos desde dónde tiene sentido trabajar. Las propuestas son abiertas: podés hacer una, todas, ninguna. Lo que hagas es materia prima para el siguiente encuentro. Lo que no hagas también nos da información.</p>
+          <p class="propuesta-texto">Entre sesiones hay sostén: un espacio de diálogo para lo que vaya apareciendo, lo que se mueve, lo que todavía no termina de asentarse.</p>
+          <a href="sesiones.html" class="propuesta-cta">ver sesiones →</a>
+        </div>
+
+        <!-- PRÓXIMAMENTE -->
+        <div class="propuesta" id="proximamente">
+          <span class="propuesta-num">03.3 · Espacios grupales</span>
+          <h2 class="propuesta-titulo">FAT uno y FAT dos</h2>
+          <span class="proximamente-aviso">Próximamente</span>
+          <p class="propuesta-texto">La FAT ya tiene un camino trazado hacia adelante. FAT 1 y FAT 2 son dos espacios grupales en proceso de construcción: nacieron de años de práctica propia y de acompañamiento, y van a abrirse cuando el tiempo lo permita.</p>
+          <p class="propuesta-texto">Si querés saber cuándo se abren, dejá tu email.</p>
+
+          <form class="formulario-proximamente" action="https://app.kit.com/forms/9535260/subscriptions" method="POST" target="_blank">
+            <label for="email-fat">recibir aviso</label>
+            <div class="campo-wrap">
+              <input type="email" id="email-fat" name="email_address" placeholder="tu email" required>
+              <button type="submit">avisar</button>
+            </div>
+            <span class="formulario-nota">Solo escribo cuando hay algo concreto.</span>
+          </form>
+        </div>
+
+        </div><!-- /propuestas-grid -->
+
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">03 ·</span> Sobre la FAT</span>
+        <p class="sobre-texto">La Fotografía Arteterapéutica (FAT) es una metodología creada por <a href="https://luciacruda.com" target="_blank" rel="noopener">Lucía CRUDA</a>, arteterapeuta y fotógrafa con más de 18 años de práctica.</p>
+        <p class="sobre-texto">De su propia práctica creativa emergió la pregunta que da origen al método: qué ocurre en la fotografía por debajo de la imagen, en el cuerpo y en la mente de quien dispara, edita, vuelve al archivo. Esa pregunta dio forma a la FAT: una metodología que investiga el proceso fotográfico como espacio de conocimiento interior.</p>
+        <p class="sobre-texto">La FAT cruza la práctica fotográfica con la arteterapia y las artes expresivas, con el trabajo somático y con la investigación desde la experiencia vivida. No es un marco teórico aplicado a la fotografía: es una metodología que emergió de adentro hacia afuera, de la práctica hacia el nombre.</p>
+        <p class="sobre-texto">Obra, formación y trayectoria artística: <a href="https://luciacruda.com" target="_blank" rel="noopener">luciacruda.com</a></p>
+      </div>
+    </section>
+
+    <!-- ESCRITOS -->
+    <section id="ensayos">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">04 ·</span> Ensayos</span>
+        <p style="font-size:17px; line-height:1.95; max-width:520px; margin-bottom:40px;">Ensayos sobre fotografía, arteterapia y práctica creativa. Publicados también en Substack.</p>
+        <a href="blog.html" class="propuesta-cta">ver todos los ensayos →</a>
+      </div>
+    </section>
+
+    <!-- LISTA -->
+    <section id="lista">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">05 ·</span> Lista</span>
+        <p style="font-size:17px; line-height:1.95; max-width:480px; opacity:0.6; margin-bottom:28px;">estoy en un momento de investigación interna pero cada tanto comparto algo. si quieres recibirlo, deja tu correo.</p>
+        <form class="formulario-proximamente" action="https://app.kit.com/forms/9535260/subscriptions" method="POST" target="_blank">
+          <div class="campo-wrap">
+            <input type="email" name="email_address" placeholder="tu email" required>
+            <button type="submit">apuntarme</button>
+          </div>
+          <span class="formulario-nota">Sin frecuencia fija. Sin spam.</span>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+<div class="footer-links">
+        <a href="https://luciacruda.com" target="_blank" rel="noopener">obra</a>
+        <a href="https://substack.com" target="_blank" rel="noopener">substack</a>
+        <a href="https://api.whatsapp.com/send/?phone=491636494792" target="_blank" rel="noopener">contacto</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Filtros blog
+    document.querySelectorAll('.filtro-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        const filtro = btn.dataset.filtro;
+        document.querySelectorAll('.blog-card').forEach(card => {
+          if (filtro === 'todas' || card.dataset.etiqueta === filtro) {
+            card.classList.remove('oculto');
+          } else {
+            card.classList.add('oculto');
+          }
+        });
+      });
+    });
+
+    const items = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    function actualizarActivo() {
+      let actual = sections[0].id;
+      sections.forEach(s => {
+        if (s.getBoundingClientRect().top <= 100) actual = s.id;
+      });
+      items.forEach(i => {
+        i.classList.remove('activo');
+        if (i.getAttribute('href') === `#${actual}`) i.classList.add('activo');
+      });
+    }
+
+    window.addEventListener('scroll', actualizarActivo, { passive: true });
+    actualizarActivo();
+  </script>
+
+</body>
+</html>

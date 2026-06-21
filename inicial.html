@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAT Inicial — Fotografía Arteterapéutica</title>
+  <meta name="description" content="FAT Inicial: un recorrido de 5 sesiones individuales para empezar a fotografiar desde un lugar completo. Técnica, mirada y proceso creativo personal como un todo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @font-face {
+      font-family: 'Cruda';
+      src: url('Cruda_font_1-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --papel: #FAFAF8;
+      --tinta: #1C1C1A;
+      --linea: rgba(28,28,26,0.15);
+      --acento: #C4621A;
+      --sidebar: 240px;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --cruda: 'Cruda', sans-serif;
+      --papel-alt: #E8EEF2;
+      --frio: #2E4E6B;
+      --sidebar-bg: #1B3A5C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1.95;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { opacity: 0.5; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      background: #000;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('INICIAL.jpg') center/cover;
+      opacity: 0.75;
+      z-index: 0;
+    }
+
+    .sidebar > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar-logo { display: block; margin-bottom: 40px; text-decoration: none; }
+    .sidebar-logo img { width: 130%; margin-left: -8%; display: block; mix-blend-mode: normal; filter: invert(1); }
+    .sidebar-logo:hover { opacity: 1; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .nav-grupo { margin-bottom: 16px; }
+    .nav-item { display: flex; align-items: baseline; gap: 10px; text-decoration: none; padding: 5px 0; line-height: 1.3; }
+    .nav-num { font-size: 10px; font-style: italic; color: rgba(255,255,255,0.30); flex-shrink: 0; width: 16px; }
+    .nav-nombre { font-size: 15px; color: #fff; transition: color 0.15s; }
+    .nav-titulo .nav-nombre { color: #fff; }
+    .nav-item:hover .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-item.activo .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .sidebar-volver { font-size: 11px; font-style: italic; color: rgba(255,255,255,0.50); text-decoration: none; margin-top: auto; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); display: block; }
+    .sidebar-volver:hover { color: #fff; }
+
+    /* ── CONTENIDO ── */
+    .contenido { margin-left: var(--sidebar); flex: 1; min-width: 0; }
+    .contenedor { max-width: 640px; padding: 0 56px; }
+
+    section { padding: 100px 0; border-bottom: 1px solid var(--linea); }
+    section:nth-child(even) { background: var(--papel-alt); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── HERO ── */
+    #inicio { padding-top: 100px; padding-bottom: 100px; }
+
+    .hero-eyebrow { font-size: 11px; font-style: italic; color: var(--acento); display: block; margin-bottom: 40px; }
+    .hero-titulo { font-family: var(--cruda); font-size: clamp(60px, 9vw, 112px); font-weight: normal; text-transform: uppercase; line-height: 0.50; margin-bottom: 40px; }
+    .hero-separador { width: 48px; height: 1px; background: var(--tinta); margin-bottom: 40px; }
+    .hero-texto { font-size: 18px; line-height: 1.95; max-width: 520px; }
+
+    /* ── ETIQUETA ── */
+    .sec-label {
+      font-family: var(--cruda);
+      font-size: clamp(44px, 5.5vw, 68px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 44px;
+    }
+
+    /* ── TEXTOS ── */
+    .bloque-texto p { font-size: 17px; line-height: 1.95; margin-bottom: 22px; max-width: 520px; }
+    .bloque-texto p:last-child { margin-bottom: 0; }
+
+    /* ── MÓDULOS ── */
+    .modulos-lista { list-style: none; margin-top: 8px; }
+
+    .modulo {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--linea);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 24px;
+    }
+    .modulo:first-child { border-top: 1px solid var(--linea); }
+
+    .modulo-num {
+      font-size: 28px;
+      font-weight: 700;
+      opacity: 0.30;
+      line-height: 1.2;
+      padding-top: 3px;
+    }
+
+    .modulo-contenido {}
+
+    .modulo-titulo {
+      font-size: 16px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .modulo-texto {
+      font-size: 15px;
+      line-height: 1.85;
+      opacity: 0.7;
+      max-width: 460px;
+    }
+
+    /* ── INCLUYE ── */
+    .lista-incluye { list-style: none; margin-top: 8px; }
+
+    .lista-incluye li {
+      font-size: 16px;
+      line-height: 1.85;
+      padding: 12px 0 12px 20px;
+      border-bottom: 1px solid var(--linea);
+      position: relative;
+    }
+    .lista-incluye li:first-child { border-top: 1px solid var(--linea); }
+    .lista-incluye li::before { content: "·"; position: absolute; left: 0; opacity: 0.4; }
+
+    /* ── TESTIMONIOS ── */
+    .testimonios { display: flex; flex-direction: column; gap: 0; }
+
+    .testimonio {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--linea);
+    }
+    .testimonio:first-child { border-top: 1px solid var(--linea); }
+
+    .testimonio-texto {
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.85;
+      max-width: 500px;
+      margin-bottom: 12px;
+    }
+
+    .testimonio-firma { font-size: 13px; opacity: 0.4; }
+
+    /* ── FORMATO + CTA ── */
+    .formato-bloque {
+      border-top: 1px solid var(--linea);
+      border-bottom: 1px solid var(--linea);
+      padding: 36px 0;
+    }
+
+    .formato-nombre { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .formato-detalle { font-size: 14px; font-style: italic; opacity: 0.5; display: block; margin-bottom: 20px; }
+    .formato-desc { font-size: 17px; line-height: 1.9; max-width: 480px; }
+
+    .cta-bloque { padding: 72px 0 0; }
+    .cta-texto { font-size: 18px; line-height: 1.9; max-width: 480px; margin-bottom: 36px; }
+
+    .cta-boton {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border-bottom: 1px solid var(--tinta);
+      padding-bottom: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer { padding: 40px 56px; border-top: 1px solid var(--linea); display: flex; justify-content: space-between; align-items: baseline; }
+    .footer-nombre { font-size: 11px; font-weight: 700; opacity: 0.3; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+
+      .sidebar {
+        position: static; width: 100%; border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+        padding: 20px 24px;
+        flex-direction: row; align-items: center;
+        justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      }
+
+      .sidebar-logo { margin-bottom: 0; opacity: 1; }
+      .sidebar-volver { border-top: none; padding-top: 0; margin-top: 0; }
+      .sidebar-nav { flex-direction: row; gap: 16px; width: 100%; }
+      .nav-grupo { margin-bottom: 0; }
+      .nav-num { display: none; }
+      .nav-nombre { font-size: 12px; }
+
+      .contenido { margin-left: 0; }
+      .contenedor { padding: 0 24px; }
+      #inicio { padding-top: 64px; }
+      section { padding: 64px 0; }
+
+      .modulo { grid-template-columns: 1fr; gap: 8px; }
+      .modulo-num { font-size: 20px; }
+
+      footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+
+    <nav class="sidebar-nav">
+      <div class="nav-grupo">
+        <a href="#inicio" class="nav-item nav-titulo activo">
+          <span class="nav-num">—</span>
+          <span class="nav-nombre">FAT Inicial</span>
+        </a>
+      </div>
+      <div class="nav-grupo">
+        <a href="#para-quien" class="nav-item">
+          <span class="nav-num">01</span>
+          <span class="nav-nombre">para quién</span>
+        </a>
+        <a href="#programa" class="nav-item">
+          <span class="nav-num">02</span>
+          <span class="nav-nombre">el programa</span>
+        </a>
+        <a href="#incluye" class="nav-item">
+          <span class="nav-num">03</span>
+          <span class="nav-nombre">qué incluye</span>
+        </a>
+        <a href="#resenas" class="nav-item">
+          <span class="nav-num">04</span>
+          <span class="nav-nombre">reseñas</span>
+        </a>
+        <a href="#formato" class="nav-item">
+          <span class="nav-num">05</span>
+          <span class="nav-nombre">formato</span>
+        </a>
+      </div>
+    </nav>
+
+    <a href="index.html" class="sidebar-volver">← todas las propuestas</a>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <!-- HERO -->
+    <section id="inicio">
+      <div class="contenedor">
+        <span class="hero-eyebrow">FAT Inicial · Fotografía Arteterapéutica</span>
+        <h1 class="hero-titulo">Empezar desde<br>un lugar completo</h1>
+        <div class="hero-separador"></div>
+        <p class="hero-texto">Un recorrido de cinco sesiones individuales para quienes quieren iniciarse en la fotografía trabajando la cámara, la mirada y el proceso creativo personal como un todo. La técnica como herramienta. La mirada como lenguaje. La práctica como experiencia.</p>
+      </div>
+    </section>
+
+    <!-- PARA QUIÉN -->
+    <section id="para-quien">
+      <div class="contenedor">
+        <span class="sec-label">01 · Para quien</span>
+        <div class="bloque-texto">
+          <p>Para quienes se inician en la fotografía y quieren hacerlo con bases sólidas y un enfoque que va más allá de la técnica.</p>
+          <p>Para quienes ya fotografían pero sienten que algo falta: coherencia en la práctica, una mirada propia, una relación más consciente con la imagen.</p>
+          <p>No se requiere experiencia previa ni equipo especial. Solo interés real y disposición a practicar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EL PROGRAMA -->
+    <section id="programa">
+      <div class="contenedor">
+        <span class="sec-label">02 · El programa</span>
+        <p style="font-size:17px; line-height:1.9; max-width:520px; margin-bottom:40px;">Un recorrido progresivo en cuatro módulos. Cada uno construye sobre el anterior.</p>
+        <ul class="modulos-lista">
+
+          <li class="modulo">
+            <span class="modulo-num">01</span>
+            <div class="modulo-contenido">
+              <span class="modulo-titulo">La técnica como herramienta</span>
+              <p class="modulo-texto">Los fundamentos técnicos necesarios para comprender la cámara y sus posibilidades. La técnica se trabaja como apoyo al proceso creativo, no como fin en sí misma. Al terminar este módulo, la cámara deja de ser un obstáculo y empieza a ser un canal.</p>
+            </div>
+          </li>
+
+          <li class="modulo">
+            <span class="modulo-num">02</span>
+            <div class="modulo-contenido">
+              <span class="modulo-titulo">La mirada como lenguaje</span>
+              <p class="modulo-texto">La fotografía entendida como forma de construir sentido. A través de obra fotográfica y referencias, se abre el campo perceptivo y empieza a tomar forma una mirada propia. Las imágenes se trabajan como material vivo: se miran, se piensan, se dejan estar.</p>
+            </div>
+          </li>
+
+          <li class="modulo">
+            <span class="modulo-num">03</span>
+            <div class="modulo-contenido">
+              <span class="modulo-titulo">La práctica como experiencia</span>
+              <p class="modulo-texto">La fotografía desde el hacer, el ensayo y la exploración. Un espacio donde la imagen puede ser probada, intervenida y pensada más allá de sus usos habituales. La práctica empieza a adquirir espesor y lenguaje propio.</p>
+            </div>
+          </li>
+
+          <li class="modulo">
+            <span class="modulo-num">04</span>
+            <div class="modulo-contenido">
+              <span class="modulo-titulo">Integración y proyecto personal</span>
+              <p class="modulo-texto">Las imágenes producidas a lo largo del proceso se ponen en relación. Aparecen recurrencias, intereses, líneas de investigación. Para algunas personas esto se traduce en el inicio de una primera serie. Para otras, en una forma nueva de sostener la fotografía en el tiempo.</p>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- QUÉ INCLUYE -->
+    <section id="incluye">
+      <div class="contenedor">
+        <span class="sec-label">03 · Que incluye</span>
+        <ul class="lista-incluye">
+          <li>Cinco sesiones individuales de 60 minutos, una por semana.</li>
+          <li>Materiales y recursos complementarios para cada módulo.</li>
+          <li>Chat de seguimiento entre sesiones para preguntas y recursos que vayan surgiendo.</li>
+          <li>Una base técnica clara, una mirada más consciente y la práctica tomando forma propia.</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- RESEÑAS -->
+    <section id="resenas">
+      <div class="contenedor">
+        <span class="sec-label">04 · Resenas</span>
+        <div class="testimonios">
+          <div class="testimonio">
+            <p class="testimonio-texto">"Es mucho más que conceptos fotográficos; es una herramienta que te ayuda a comprender la vida y a comprenderte a vos mismo."</p>
+            <span class="testimonio-firma">Mateo D.</span>
+          </div>
+          <div class="testimonio">
+            <p class="testimonio-texto">"Su presencia, su apertura al intercambio desde el amor y la escucha, plantaron en mí una semilla de la que hoy brotan mil preguntas nuevas sobre cómo quiero posicionarme en el mundo."</p>
+            <span class="testimonio-firma">Sara C.</span>
+          </div>
+          <div class="testimonio">
+            <p class="testimonio-texto">"Gracias por enseñarnos a ver la fotografía con nuevos ojos."</p>
+            <span class="testimonio-firma">Miriam T.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATO + CTA -->
+    <section id="formato">
+      <div class="contenedor">
+        <span class="sec-label">05 · Formato e inversión</span>
+        <div class="formato-bloque">
+          <span class="formato-nombre">Proceso individual · 1:1</span>
+          <span class="formato-detalle">5 sesiones de 60 min · semanal · online</span>
+          <p class="formato-desc">Con chat de seguimiento y soporte entre sesiones para preguntas y recursos que surjan del trabajo.</p>
+        </div>
+
+        <div class="cta-bloque">
+          <p style="font-size:36px; font-weight:700; line-height:1; margin-bottom:8px;">200 €</p>
+          <p style="font-size:13px; font-style:italic; opacity:0.4; margin-bottom:40px;">proceso completo · 5 sesiones</p>
+          <p class="cta-texto">Los espacios de FAT Inicial se abren bajo demanda. Si querés saber más o consultar disponibilidad, escribime.</p>
+          <a href="mailto:hola@fotografiaarteterapeutica.com" class="cta-boton">escribir para saber más</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="index.html" class="footer-nombre">fotografía arteterapéutica</a>
+      <div class="footer-links">
+        <a href="index.html#propuestas">propuestas</a>
+        <a href="https://luciacruda.com" target="_blank" rel="noopener">obra</a>
+        <a href="mailto:hola@fotografiaarteterapeutica.com">contacto</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const items = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          items.forEach(i => i.classList.remove('activo'));
+          const activo = document.querySelector(`.nav-item[href="#${id}"]`);
+          if (activo) activo.classList.add('activo');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

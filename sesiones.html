@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arteterapia Fotográfica — Fotografía Arteterapéutica</title>
+  <meta name="description" content="Sesiones individuales de arteterapia fotográfica. Proceso fotográfico como espacio de exploración personal. 60 minutos, online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @font-face {
+      font-family: 'Cruda';
+      src: url('Cruda_font_1-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --papel: #FAFAF8;
+      --tinta: #1C1C1A;
+      --linea: rgba(28,28,26,0.15);
+      --acento: #C4621A;
+      --sidebar: 240px;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --cruda: 'Cruda', sans-serif;
+      --papel-alt: #E8EEF2;
+      --frio: #2E4E6B;
+      --sidebar-bg: #1B3A5C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1.95;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { opacity: 0.5; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      background: #000;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('lab2.jpg') center/cover;
+      opacity: 0.75;
+      z-index: 0;
+    }
+
+    .sidebar > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar-logo { display: block; margin-bottom: 40px; text-decoration: none; }
+    .sidebar-logo img { width: 130%; margin-left: -8%; display: block; mix-blend-mode: normal; filter: invert(1); }
+    .sidebar-logo:hover { opacity: 1; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .nav-grupo { margin-bottom: 16px; }
+    .nav-item { display: flex; align-items: baseline; gap: 10px; text-decoration: none; padding: 5px 0; line-height: 1.3; }
+    .nav-num { font-size: 10px; font-style: italic; color: rgba(255,255,255,0.30); flex-shrink: 0; width: 16px; }
+    .nav-nombre { font-size: 15px; color: #fff; transition: color 0.15s; }
+    .nav-titulo .nav-nombre { color: #fff; }
+    .nav-item:hover .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-item.activo .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .sidebar-volver { font-size: 11px; font-style: italic; color: rgba(255,255,255,0.50); text-decoration: none; margin-top: auto; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); display: block; }
+    .sidebar-volver:hover { color: #fff; }
+
+    /* ── CONTENIDO ── */
+    .contenido { margin-left: var(--sidebar); flex: 1; min-width: 0; }
+    .contenedor { max-width: 640px; padding: 0 56px; }
+
+    section { padding: 100px 0; border-bottom: 1px solid var(--linea); }
+    section:nth-child(even) { background: var(--papel-alt); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── HERO ── */
+    #inicio { padding-top: 100px; padding-bottom: 100px; }
+
+    .hero-eyebrow { font-size: 11px; font-style: italic; color: var(--acento); display: block; margin-bottom: 40px; }
+    .hero-titulo { font-family: var(--cruda); font-size: clamp(60px, 9vw, 112px); font-weight: normal; text-transform: uppercase; line-height: 0.50; margin-bottom: 40px; }
+    .hero-separador { width: 24px; height: 1px; background: var(--tinta); margin-bottom: 40px; }
+    .hero-texto { font-size: 18px; line-height: 1.95; max-width: 520px; }
+
+    /* ── ETIQUETA ── */
+    .sec-label {
+      font-family: var(--cruda);
+      font-size: clamp(36px, 4.5vw, 56px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 44px;
+    }
+
+    /* ── TEXTOS ── */
+    .bloque-texto p { font-size: 17px; line-height: 1.95; margin-bottom: 22px; max-width: 520px; }
+    .bloque-texto p:last-child { margin-bottom: 0; }
+
+    /* ── LISTA CON ASTERISCO ── */
+    .lista-ast { list-style: none; }
+
+    .lista-ast li {
+      font-size: 17px;
+      line-height: 1.9;
+      padding: 14px 0 14px 24px;
+      border-bottom: 1px solid var(--linea);
+      position: relative;
+    }
+    .lista-ast li:first-child { border-top: 1px solid var(--linea); }
+    .lista-ast li:last-child { border-bottom: none; }
+    .lista-ast li::before { content: "*"; position: absolute; left: 0; font-style: italic; opacity: 0.4; }
+
+    /* ── MAPA FAT ── */
+    .mapa-titulo {
+      font-family: var(--cruda);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-top: 72px;
+      margin-bottom: 0;
+    }
+
+    .mapa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--linea);
+      margin-top: 16px;
+    }
+
+    .mapa-paso {
+      padding: 28px 20px 28px 0;
+      border-right: 1px solid var(--linea);
+    }
+    .mapa-paso:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+    .mapa-paso:nth-child(2) { padding-left: 20px; }
+
+    .mapa-num { font-size: 32px; font-weight: 700; line-height: 1; display: block; margin-bottom: 10px; opacity: 0.30; }
+    .mapa-nombre { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .mapa-items { list-style: none; }
+    .mapa-items li { font-style: italic; font-size: 14px; line-height: 1.6; opacity: 0.55; padding: 3px 0; border-bottom: 1px solid var(--linea); }
+    .mapa-items li:last-child { border-bottom: none; }
+
+    /* ── FORMATO / PRECIOS ── */
+    .precios-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--linea);
+      margin-top: 8px;
+    }
+
+    .precio-card {
+      padding: 36px 32px;
+      border-right: 1px solid var(--linea);
+    }
+    .precio-card:last-child { border-right: none; }
+
+    .precio-tipo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--acento);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .precio-linea {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .precio-num {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .precio-tachado {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 0.25;
+      text-decoration: line-through;
+    }
+
+    .precio-detalle {
+      font-size: 13px;
+      font-style: italic;
+      opacity: 0.45;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .precio-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      opacity: 0.65;
+    }
+
+    .precio-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--linea);
+      padding: 2px 6px;
+      margin-left: 6px;
+      opacity: 0.5;
+      vertical-align: middle;
+    }
+
+    .cta-bloque { padding: 56px 0 0; }
+    .cta-texto { font-size: 17px; line-height: 1.9; max-width: 480px; margin-bottom: 32px; }
+
+    .cta-boton {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border-bottom: 1px solid var(--tinta);
+      padding-bottom: 2px;
+    }
+
+    /* ── FAQ ── */
+    .faq-lista { list-style: none; }
+
+    .faq-item { padding: 24px 0; border-bottom: 1px solid var(--linea); }
+    .faq-item:first-child { border-top: 1px solid var(--linea); }
+
+    .faq-pregunta { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 12px; }
+    .faq-respuesta { font-size: 16px; line-height: 1.9; opacity: 0.65; max-width: 520px; }
+
+    /* ── FOOTER ── */
+    footer { padding: 40px 56px; border-top: 1px solid var(--linea); display: flex; justify-content: space-between; align-items: baseline; }
+    .footer-nombre { font-size: 11px; font-weight: 700; opacity: 0.3; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+
+      .sidebar {
+        position: static; width: 100%; border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+        padding: 20px 24px;
+        flex-direction: row; align-items: center;
+        justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      }
+
+      .sidebar-logo { margin-bottom: 0; opacity: 1; }
+      .sidebar-volver { border-top: none; padding-top: 0; margin-top: 0; }
+      .sidebar-nav { flex-direction: row; gap: 16px; width: 100%; }
+      .nav-grupo { margin-bottom: 0; }
+      .nav-num { display: none; }
+      .nav-nombre { font-size: 12px; }
+
+      .contenido { margin-left: 0; }
+      .contenedor { padding: 0 24px; }
+      #inicio { padding-top: 64px; }
+      section { padding: 64px 0; }
+
+      .precios-grid { grid-template-columns: 1fr; }
+      .precio-card { border-right: none; border-bottom: 1px solid var(--linea); }
+      .precio-card:last-child { border-bottom: none; }
+
+      .mapa-grid { grid-template-columns: 1fr; }
+      .mapa-paso { border-right: none; border-bottom: 1px solid var(--linea); padding: 24px 0; }
+      .mapa-paso:last-child { border-bottom: none; padding-left: 0; }
+      .mapa-paso:nth-child(2) { padding-left: 0; }
+
+      footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+
+    <nav class="sidebar-nav">
+      <div class="nav-grupo">
+        <a href="#inicio" class="nav-item nav-titulo activo">
+          <span class="nav-num">—</span>
+          <span class="nav-nombre">sesiones</span>
+        </a>
+      </div>
+      <div class="nav-grupo">
+        <a href="#para-quien" class="nav-item">
+          <span class="nav-num">01</span>
+          <span class="nav-nombre">para quién</span>
+        </a>
+        <a href="#el-proceso" class="nav-item">
+          <span class="nav-num">02</span>
+          <span class="nav-nombre">el proceso</span>
+        </a>
+        <a href="#como-funciona" class="nav-item">
+          <span class="nav-num">03</span>
+          <span class="nav-nombre">cómo funciona</span>
+        </a>
+        <a href="#formato" class="nav-item">
+          <span class="nav-num">04</span>
+          <span class="nav-nombre">formato</span>
+        </a>
+        <a href="#preguntas" class="nav-item">
+          <span class="nav-num">05</span>
+          <span class="nav-nombre">preguntas</span>
+        </a>
+      </div>
+    </nav>
+
+    <a href="index.html" class="sidebar-volver">← todas las propuestas</a>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <!-- HERO -->
+    <section id="inicio">
+      <div class="contenedor">
+        <span class="hero-eyebrow">Sesiones individuales · Fotografía Arteterapéutica</span>
+        <h1 class="hero-titulo">Arteterapia<br>fotográfica</h1>
+        <div class="hero-separador"></div>
+        <p class="hero-texto">La práctica fotográfica puede realizarse desde un lugar profundo, activando por debajo, en el micelio subterráneo, entretejiendo registros, incitándonos a disparar sin entender siempre por qué ni para qué. La fotografía arteterapéutica es un abordaje sensible, simbólico y creativo de nuestras emociones y estados vitales. Las sesiones son el laboratorio ideal para encontrarnos con todo ese potencial.</p>
+      </div>
+    </section>
+
+    <!-- PARA QUIÉN -->
+    <section id="para-quien">
+      <div class="contenedor">
+        <span class="sec-label">01 · Para quien</span>
+        <div class="bloque-texto">
+          <p>Para quienes sienten que la fotografía hace algo en ellas que va más allá de la imagen. Para quienes quieren explorar su vínculo con la mirada, con el archivo, con lo que el proceso fotográfico mueve.</p>
+          <p>Para quienes atraviesan un momento de tránsito y quieren acompañarlo desde la práctica creativa. Para quienes ya hicieron FAT Inicial y quieren seguir profundizando en un espacio propio.</p>
+          <p>No se necesita experiencia en fotografía ni en procesos terapéuticos. El punto de partida es lo que cada persona trae.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EL PROCESO -->
+    <section id="el-proceso">
+      <div class="contenedor">
+        <span class="sec-label">02 · El proceso</span>
+        <div class="bloque-texto">
+          <p>La FAT es un método para explorar y trabajar el vínculo con el adentro·afuera desde la fotografía, la creatividad y la sensibilidad. Una forma de conectar con la voz propia, con la expresión personal, de habitar con otra presencia el cotidiano.</p>
+          <p>Las sesiones se construyen una sobre la otra, con lo que cada persona trae: imágenes, sentires, intereses, o cosas que no terminan de definirse. La constelación que va tomando forma empieza a tener un lenguaje propio.</p>
+        </div>
+
+        <span class="mapa-titulo">Mapa FAT</span>
+        <div class="mapa-grid">
+          <div class="mapa-paso">
+            <span class="mapa-num">01</span>
+            <span class="mapa-nombre">Crear imágenes</span>
+            <ul class="mapa-items">
+              <li>Abrir la mirada</li>
+              <li>Explorar</li>
+              <li>Investigar</li>
+              <li>Relacionarse</li>
+            </ul>
+          </div>
+          <div class="mapa-paso">
+            <span class="mapa-num">02</span>
+            <span class="mapa-nombre">Abrir conversaciones</span>
+            <ul class="mapa-items">
+              <li>Editar</li>
+              <li>Experimentar</li>
+              <li>Materializar</li>
+            </ul>
+          </div>
+          <div class="mapa-paso">
+            <span class="mapa-num">03</span>
+            <span class="mapa-nombre">Integrar</span>
+            <ul class="mapa-items">
+              <li>Reposar</li>
+              <li>Construir</li>
+              <li>Compartir</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona">
+      <div class="contenedor">
+        <span class="sec-label">03 · Cómo funciona</span>
+        <ul class="lista-ast">
+          <li>En la primera sesión exploramos qué traés y qué hay ahí. A veces aparece algo claro que trabajar como foco. A veces no, y eso también es información. El proceso se va desenvolviendo sesión a sesión.</li>
+          <li>Al final de cada encuentro te vas con preguntas y propuestas como opciones para seguir explorando. No son tareas: podés hacer una, todas, ninguna.</li>
+          <li>El trabajo ocurre en la sesión. No hay estructura entre encuentros ni compromisos de continuidad.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FORMATO + PRECIOS -->
+    <section id="formato">
+      <div class="contenedor">
+        <span class="sec-label">04 · Formato e inversión</span>
+        <div class="cta-bloque">
+          <p class="cta-texto">Las sesiones se abren bajo demanda. Si querés saber más o consultar disponibilidad, escribime.</p>
+          <a href="mailto:hola@fotografiaarteterapeutica.com" class="cta-boton">escribir para saber más</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS -->
+    <section id="preguntas">
+      <div class="contenedor">
+        <span class="sec-label">05 · Preguntas frecuentes</span>
+        <ul class="faq-lista">
+
+          <li class="faq-item">
+            <p class="faq-pregunta">¿Es terapia?</p>
+            <p class="faq-respuesta">Son sesiones terapéuticas desde la fotografía, la arteterapia y las artes expresivas. No son psicoterapia en sentido clínico, pero sí trabajamos el plano emocional con cuidado, presencia y contención. Mi experiencia de más de 18 años como fotógrafa y mi formación en arteterapia, artes expresivas y trabajo somático da el marco desde el que acompaño.</p>
+          </li>
+
+          <li class="faq-item">
+            <p class="faq-pregunta">¿Necesito experiencia en fotografía?</p>
+            <p class="faq-respuesta">No. Las sesiones no evalúan la técnica ni el resultado de las imágenes. Lo que traés, sea cual sea tu relación actual con la cámara, es el punto de partida.</p>
+          </li>
+
+          <li class="faq-item">
+            <p class="faq-pregunta">¿Qué pasa en la primera sesión?</p>
+            <p class="faq-respuesta">Es la única pautada. Nos conocemos, vemos qué traés, desde dónde tiene sentido trabajar. Si no llegás con nada concreto, algo aparece. Ya en ese primer encuentro empezamos a trabajar, y te vas con propuestas y un primer mapa del proceso.</p>
+          </li>
+
+          <li class="faq-item">
+            <p class="faq-pregunta">¿Qué son las propuestas que me llevo al final de cada sesión?</p>
+            <p class="faq-respuesta">Son preguntas o invitaciones para seguir explorando si querés. No son tareas ni compromisos: podés hacer una, todas, ninguna. Lo que hagas puede ser material para el siguiente encuentro. Lo que no hagas también puede serlo.</p>
+          </li>
+
+          <li class="faq-item">
+            <p class="faq-pregunta">¿Cuántas sesiones necesito?</p>
+            <p class="faq-respuesta">Podés empezar con una y ver cómo te queda. El proceso empieza a tener espesor a partir del segundo o tercer encuentro, cuando las sesiones empiezan a dialogar entre sí. Podés continuar, pausar o cerrar cuando sientas que tiene sentido.</p>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="index.html" class="footer-nombre">fotografía arteterapéutica</a>
+      <div class="footer-links">
+        <a href="index.html#propuestas">propuestas</a>
+        <a href="https://luciacruda.com" target="_blank" rel="noopener">obra</a>
+        <a href="mailto:hola@fotografiaarteterapeutica.com">contacto</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const items = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          items.forEach(i => i.classList.remove('activo'));
+          const activo = document.querySelector(`.nav-item[href="#${id}"]`);
+          if (activo) activo.classList.add('activo');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escritos — Fotografía Arteterapéutica</title>
+  <meta name="description" content="Ensayos sobre fotografía, arteterapia y práctica creativa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @font-face {
+      font-family: 'Cruda';
+      src: url('Cruda_font_1-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --papel: #FAFAF8;
+      --tinta: #1C1C1A;
+      --linea: rgba(28,28,26,0.15);
+      --acento: #C4621A;
+      --sidebar: 240px;
+      --mono: 'Courier Prime', 'Courier New', monospace;
+      --cruda: 'Cruda', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1.95;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { opacity: 0.5; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      background: #000;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('la piel, berlin.jpg') center/cover;
+      opacity: 0.75;
+      z-index: 0;
+    }
+
+    .sidebar > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar-logo { display: block; margin-bottom: 40px; text-decoration: none; }
+    .sidebar-logo img { width: 130%; margin-left: -8%; display: block; mix-blend-mode: normal; filter: invert(1); }
+    .sidebar-logo:hover { opacity: 1; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .nav-grupo { margin-bottom: 16px; }
+    .nav-item { display: flex; align-items: baseline; gap: 10px; text-decoration: none; padding: 5px 0; line-height: 1.3; }
+    .nav-num { font-size: 10px; font-style: italic; color: rgba(255,255,255,0.30); flex-shrink: 0; width: 16px; }
+    .nav-nombre { font-size: 15px; color: #fff; transition: color 0.15s; }
+    .nav-titulo .nav-nombre { color: #fff; }
+    .nav-item:hover .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-item.activo .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .sidebar-volver { font-size: 11px; font-style: italic; color: rgba(255,255,255,0.50); text-decoration: none; margin-top: auto; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); display: block; }
+    .sidebar-volver:hover { color: #fff; }
+
+    /* ── CONTENIDO ── */
+    .contenido { margin-left: var(--sidebar); flex: 1; min-width: 0; }
+
+    /* ── HEADER ── */
+    .escritos-header { padding: 80px 56px 56px; border-bottom: 1px solid var(--linea); max-width: 640px; }
+    .sec-label { font-family: var(--cruda); font-size: clamp(44px, 5.5vw, 68px); font-weight: normal; letter-spacing: 0.04em; text-transform: uppercase; color: var(--acento); display: block; margin-bottom: 16px; }
+    .sec-num { font-family: var(--mono); font-size: 0.38em; font-weight: normal; letter-spacing: 0; text-transform: none; opacity: 0.55; vertical-align: middle; margin-right: 0.3em; }
+    .hero-texto { font-size: 16px; line-height: 1.9; opacity: 0.6; max-width: 480px; }
+
+    /* ── FILTROS ── */
+    .blog-filtros {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--linea);
+      padding: 0 56px;
+    }
+
+    .filtro-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 18px 20px 16px;
+      cursor: pointer;
+      color: var(--tinta);
+      opacity: 0.35;
+      transition: opacity 0.15s;
+      margin-bottom: -1px;
+    }
+    .filtro-btn:hover { opacity: 0.7; }
+    .filtro-btn.activo { opacity: 1; color: var(--acento); border-bottom-color: var(--acento); }
+
+    /* ── GRID ── */
+    .blog-contenedor { padding: 0 56px; }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--linea);
+    }
+
+    .blog-card {
+      padding: 40px 32px 40px 0;
+      border-bottom: 1px solid var(--linea);
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.15s;
+    }
+    .blog-card:nth-child(odd) { padding-right: 48px; border-right: 1px solid var(--linea); }
+    .blog-card:nth-child(even) { padding-left: 48px; padding-right: 0; }
+    .blog-card:hover { opacity: 0.5; }
+    .blog-card.oculto { display: none; }
+
+    .blog-etiqueta { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acento); display: block; margin-bottom: 10px; }
+    .blog-titulo { font-size: 17px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+    .blog-extracto { font-size: 14px; line-height: 1.75; opacity: 0.52; }
+
+    /* ── SUBSTACK ── */
+    .blog-substack { display: block; font-size: 12px; font-style: italic; opacity: 0.35; padding: 24px 56px; border-top: 1px solid var(--linea); text-decoration: none; }
+    .blog-substack:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
+    footer { padding: 40px 56px; border-top: 1px solid var(--linea); display: flex; justify-content: space-between; align-items: baseline; }
+    .footer-nombre { font-size: 11px; font-weight: 700; opacity: 0.3; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.7; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+      .sidebar { position: static; width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); padding: 20px 24px; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      .sidebar-logo { margin-bottom: 0; opacity: 1; }
+      .sidebar-volver { border-top: none; padding-top: 0; margin-top: 0; }
+      .sidebar-nav { flex-direction: row; gap: 16px; width: 100%; }
+      .nav-grupo { margin-bottom: 0; }
+      .nav-num { display: none; }
+      .nav-nombre { font-size: 12px; }
+      .contenido { margin-left: 0; }
+      .escritos-header { padding: 48px 24px 40px; }
+      .blog-filtros { padding: 0 24px; }
+      .blog-contenedor { padding: 0 24px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card { padding: 32px 0 !important; border-right: none !important; }
+      .blog-substack { padding: 20px 24px; }
+      footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+    <nav class="sidebar-nav">
+      <div class="nav-grupo">
+        <a href="index.html" class="nav-item"><span class="nav-num">00</span><span class="nav-nombre">inicio</span></a>
+        <a href="index.html#propuestas" class="nav-item"><span class="nav-num">02</span><span class="nav-nombre">propuestas</span></a>
+        <a href="index.html#sobre" class="nav-item"><span class="nav-num">03</span><span class="nav-nombre">sobre</span></a>
+        <a href="blog.html" class="nav-item nav-titulo activo"><span class="nav-num">04</span><span class="nav-nombre">ensayos</span></a>
+      </div>
+    </nav>
+    <a href="index.html" class="sidebar-volver">← inicio</a>
+  </aside>
+
+  <main class="contenido">
+
+    <div class="escritos-header">
+      <span class="sec-label"><span class="sec-num">04 ·</span> Ensayos</span>
+      <p class="hero-texto">Sobre fotografía, arteterapia y práctica creativa. Publicados también en Substack.</p>
+    </div>
+
+    <div class="blog-filtros">
+      <button class="filtro-btn" data-filtro="fotografía">fotografía</button>
+      <button class="filtro-btn" data-filtro="práctica">práctica</button>
+      <button class="filtro-btn" data-filtro="FAT">FAT</button>
+      <button class="filtro-btn activo" data-filtro="todas">todas</button>
+    </div>
+
+    <div class="blog-contenedor">
+      <div class="blog-grid">
+
+        <!-- FOTOGRAFÍA -->
+        <a class="blog-card" href="la-otra-mirada.html" data-etiqueta="fotografía">
+          <span class="blog-etiqueta">fotografía</span>
+          <p class="blog-titulo">La otra mirada</p>
+          <p class="blog-extracto">Un retrato con una desconocida. La fotografía como forma de relación y de encuentro. Lo que cambia en la imagen cuando la confianza aparece.</p>
+        </a>
+
+        <a class="blog-card" href="imagenes-cuando-no-hay-palabras.html" data-etiqueta="fotografía">
+          <span class="blog-etiqueta">fotografía</span>
+          <p class="blog-titulo">Imágenes cuando no hay palabras</p>
+          <p class="blog-extracto">La fotografía como lenguaje cuando el lenguaje no alcanza. Lo que la imagen puede sostener que las palabras no.</p>
+        </a>
+
+        <a class="blog-card" href="el-futuro-en-blanco-y-negro.html" data-etiqueta="fotografía">
+          <span class="blog-etiqueta">fotografía</span>
+          <p class="blog-titulo">El futuro en blanco y negro</p>
+          <p class="blog-extracto">Revelar en casa mientras los demás duermen. El proceso analógico como acto de autonomía y de presencia.</p>
+        </a>
+
+        <!-- PRÁCTICA -->
+        <a class="blog-card" href="los-rituales-que-me-construyen.html" data-etiqueta="práctica">
+          <span class="blog-etiqueta">práctica</span>
+          <p class="blog-titulo">Los rituales que me construyen</p>
+          <p class="blog-extracto">Caminar, fermentos, baños de bosque. Los rituales cotidianos como práctica creativa antes de que sean hábito.</p>
+        </a>
+
+        <a class="blog-card" href="el-proceso-de-abrazar-la-introspeccion.html" data-etiqueta="práctica">
+          <span class="blog-etiqueta">práctica</span>
+          <p class="blog-titulo">El proceso de abrazar la introspección</p>
+          <p class="blog-extracto">Un recorrido biográfico y profesional. Cómo la fotografía fue dejando de ser solo imagen para volverse práctica interior.</p>
+        </a>
+
+        <a class="blog-card" href="crear-y-criar.html" data-etiqueta="práctica">
+          <span class="blog-etiqueta">práctica</span>
+          <p class="blog-titulo">Crear y criar</p>
+          <p class="blog-extracto">Maternidad y práctica creativa como procesos que no se excluyen. Una danza que se aprende haciéndola.</p>
+        </a>
+
+        <a class="blog-card" href="sobre-la-practica.html" data-etiqueta="práctica">
+          <span class="blog-etiqueta">práctica</span>
+          <p class="blog-titulo">Sobre la práctica</p>
+          <p class="blog-extracto">Qué hace que una práctica fotográfica se sostenga. Cómo volver a ella cuando se pierde el hilo.</p>
+        </a>
+
+        <a class="blog-card" href="vivir-una-practica-viva.html" data-etiqueta="práctica">
+          <span class="blog-etiqueta">práctica</span>
+          <p class="blog-titulo">Vivir una práctica viva</p>
+          <p class="blog-extracto">La práctica no es lineal. Parar no es abandonar. Lo que significa sostener algo en el tiempo sin que se vuelva obligación.</p>
+        </a>
+
+        <!-- FAT -->
+        <a class="blog-card" href="el-cuerpo-como-archivo.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">El cuerpo como archivo</p>
+          <p class="blog-extracto">Disparar sin mirar, confiar en la llamada del cuerpo. Lo que revelan los carretes cuando volvemos a ellos con otros ojos.</p>
+        </a>
+
+        <a class="blog-card" href="la-obra-invisible.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">La obra invisible</p>
+          <p class="blog-extracto">No toda imagen hecha para una misma llega a mostrarse. Obra no es lo que se ve, es lo que transforma.</p>
+        </a>
+
+        <a class="blog-card" href="el-ritmo.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">El ritmo</p>
+          <p class="blog-extracto">Un ritmo sano es orgánico, no se fuerza. La fotografía comienza antes del disparo, antes de la mirada.</p>
+        </a>
+
+        <a class="blog-card" href="el-ritmo-ii.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">El ritmo (parte II)</p>
+          <p class="blog-extracto">El ritmo como energía, como relación con el proceso, como ciclo. Lo que cambia cuando dejamos de ir contra el propio tiempo.</p>
+        </a>
+
+        <a class="blog-card" href="la-atencion.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">La atención</p>
+          <p class="blog-extracto">La atención encarnada cuando disparamos, reflexiva cuando revisamos. La agencia vuelve por la mirilla de la cámara.</p>
+        </a>
+
+        <a class="blog-card" href="el-cuerpo.html" data-etiqueta="FAT">
+          <span class="blog-etiqueta">FAT</span>
+          <p class="blog-titulo">El cuerpo</p>
+          <p class="blog-extracto">El cuerpo sostiene la práctica. Lo somático en la FAT: el cuerpo como mapa, como archivo, como guía antes de que intervenga la mente.</p>
+        </a>
+
+      </div>
+    </div>
+
+    <footer>
+      <a href="index.html" class="footer-nombre">fotografía arteterapéutica</a>
+      <div class="footer-links">
+        <a href="index.html#propuestas">propuestas</a>
+        <a href="https://luciacruda.com" target="_blank" rel="noopener">obra</a>
+        <a href="mailto:hola@fotografiaarteterapeutica.com">contacto</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    document.querySelectorAll('.filtro-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+        const filtro = btn.dataset.filtro;
+        document.querySelectorAll('.blog-card').forEach(card => {
+          if (filtro === 'todas' || card.dataset.etiqueta === filtro) {
+            card.classList.remove('oculto');
+          } else {
+            card.classList.add('oculto');
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
