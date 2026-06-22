@@ -557,18 +557,25 @@
         width: 100%;
         border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.18);
-        padding: 14px 24px;
+        padding: 12px 20px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         gap: 16px;
         background: #1C1C1A;
+        min-height: 0;
       }
 
       .sidebar::before { display: none; }
 
       .sidebar-logo { margin-bottom: 0; flex-shrink: 0; }
-      .sidebar-logo img { width: 110px; height: auto; margin-left: 0; }
+      .sidebar-logo img {
+        width: 160px;
+        height: 32px;
+        object-fit: cover;
+        object-position: center 47%;
+        margin-left: 0;
+      }
       .sidebar-pie { display: none; }
 
       .sidebar-nav {
