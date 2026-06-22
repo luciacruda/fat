@@ -557,18 +557,21 @@
         width: 100%;
         border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.12);
-        padding: 20px 24px;
+        padding: 16px 24px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: nowrap;
+        overflow-x: auto;
       }
 
-      .sidebar-logo { margin-bottom: 0; }
+      .sidebar-logo { margin-bottom: 0; flex-shrink: 0; }
       .sidebar-pie { display: none; }
 
       .sidebar-nav {
         flex-direction: row;
-        gap: 20px;
+        gap: 16px;
+        flex-wrap: nowrap;
       }
 
       .nav-grupo { margin-bottom: 0; }
@@ -585,6 +588,9 @@
 
       .mapa-grid { grid-template-columns: 1fr; }
       .propuestas-grid { grid-template-columns: 1fr; }
+      #fat-inicial, #sesiones, #proximamente { grid-column: auto; grid-row: auto; }
+      .propuesta { margin-bottom: 0; border-bottom: 1px solid var(--linea); }
+      .propuesta:last-child { border-bottom: none; }
       .mapa-paso {
         border-right: none; border-bottom: 1px solid var(--linea);
         padding: 24px 0;
