@@ -548,6 +548,28 @@
     .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
     .footer-links a:hover { opacity: 0.7; }
 
+    .hamburguesa {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+    .hamburguesa span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: rgba(255,255,255,0.85);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .hamburguesa.abierto span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+    .hamburguesa.abierto span:nth-child(2) { opacity: 0; }
+    .hamburguesa.abierto span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
       body { flex-direction: column; }
@@ -577,18 +599,27 @@
         margin-left: 0;
       }
       .sidebar-pie { display: none; }
+      .hamburguesa { display: flex; }
 
       .sidebar-nav {
-        flex-direction: row;
-        gap: 16px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
+        display: none;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: #1C1C1A;
+        padding: 20px 20px 32px;
+        flex-direction: column;
+        gap: 0;
+        z-index: 200;
+        border-bottom: 1px solid rgba(255,255,255,0.12);
       }
+      .sidebar-nav.abierta { display: flex; }
 
-      .nav-grupo { margin-bottom: 0; }
+      .nav-grupo { margin-bottom: 12px; }
       .nav-num { display: none; }
-      .nav-sub { display: none; }
-      .nav-nombre { font-size: 12px; }
+      .nav-sub { display: block; }
+      .nav-nombre { font-size: 15px; }
 
       .contenido { margin-left: 0; }
 
@@ -623,6 +654,10 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <a href="#inicio" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+
+    <button class="hamburguesa" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
 
     <nav class="sidebar-nav">
       <div class="nav-grupo">
@@ -859,6 +894,24 @@
 
     window.addEventListener('scroll', actualizarActivo, { passive: true });
     actualizarActivo();
+
+    // Menú hamburguesa
+    const hamburguesa = document.querySelector('.hamburguesa');
+    const navMovil = document.querySelector('.sidebar-nav');
+    if (hamburguesa && navMovil) {
+      hamburguesa.addEventListener('click', () => {
+        const abierto = navMovil.classList.toggle('abierta');
+        hamburguesa.classList.toggle('abierto', abierto);
+        hamburguesa.setAttribute('aria-expanded', abierto);
+      });
+      navMovil.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navMovil.classList.remove('abierta');
+          hamburguesa.classList.remove('abierto');
+          hamburguesa.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   </script>
 
 </body>
