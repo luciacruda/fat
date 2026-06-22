@@ -556,22 +556,26 @@
         position: static;
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.12);
-        padding: 16px 24px;
+        border-bottom: 1px solid rgba(255,255,255,0.18);
+        padding: 14px 24px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        flex-wrap: nowrap;
-        overflow-x: auto;
+        gap: 16px;
+        background: #1C1C1A;
       }
 
+      .sidebar::before { display: none; }
+
       .sidebar-logo { margin-bottom: 0; flex-shrink: 0; }
+      .sidebar-logo img { width: 110px; height: auto; margin-left: 0; }
       .sidebar-pie { display: none; }
 
       .sidebar-nav {
         flex-direction: row;
         gap: 16px;
         flex-wrap: nowrap;
+        overflow-x: auto;
       }
 
       .nav-grupo { margin-bottom: 0; }
