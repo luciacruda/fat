@@ -533,6 +533,20 @@
     }
     .blog-mas:hover { opacity: 0.7; }
 
+    /* ── TIENDA ── */
+    .tienda-intro { font-size: 17px; line-height: 1.95; max-width: 520px; opacity: 0.6; margin-bottom: 40px; }
+    .tienda-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--linea); }
+    .tienda-producto { padding: 28px 20px 28px 0; border-right: 1px solid var(--linea); display: flex; flex-direction: column; }
+    .tienda-producto:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+    .tienda-producto:nth-child(2) { padding-left: 20px; }
+    .tienda-num { font-size: 32px; font-weight: normal; line-height: 1; display: block; margin-bottom: 12px; opacity: 0.30; }
+    .tienda-nombre { font-family: var(--cruda); font-size: clamp(22px, 3vw, 30px); font-weight: normal; text-transform: uppercase; line-height: 1.1; margin-bottom: 14px; }
+    .tienda-descripcion { font-size: 14px; line-height: 1.7; opacity: 0.55; margin-bottom: 20px; flex: 1; }
+    .tienda-precio { font-size: 22px; font-weight: 700; display: block; margin-bottom: 20px; }
+    .tienda-cta { display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-decoration: none; background: var(--tinta); color: var(--papel); padding: 10px 18px; transition: opacity 0.2s; align-self: flex-start; }
+    .tienda-cta:hover { opacity: 0.7; color: var(--papel); }
+    .tienda-nota { display: block; font-size: 12px; font-style: italic; opacity: 0.35; margin-top: 28px; }
+
     /* ── FOOTER ── */
     footer {
       padding: 40px 56px;
@@ -645,6 +659,11 @@
       .blog-card:nth-child(even) { padding-left: 0; }
       .blog-card:last-child { border-bottom: none; }
 
+      .tienda-grid { grid-template-columns: 1fr; }
+      .tienda-producto { border-right: none; border-bottom: 1px solid var(--linea); padding: 24px 0; }
+      .tienda-producto:last-child { border-bottom: none; padding-left: 0; }
+      .tienda-producto:nth-child(2) { padding-left: 0; }
+
       footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
     }
   </style>
@@ -700,6 +719,10 @@
         <a href="blog.html" class="nav-item">
           <span class="nav-num">04</span>
           <span class="nav-nombre">ensayos</span>
+        </a>
+        <a href="#tienda" class="nav-item">
+          <span class="nav-num">05</span>
+          <span class="nav-nombre">preventa</span>
         </a>
       </div>
     </nav>
@@ -835,10 +858,45 @@
       </div>
     </section>
 
+    <!-- TIENDA -->
+    <section id="tienda">
+      <div class="contenedor">
+        <span class="sec-label"><span class="sec-num">05 ·</span> Preventa</span>
+        <p class="tienda-intro">El oráculo y Conversaciones conmigo misma disponibles antes de que existan. Envío no incluido, se cotiza según destino.</p>
+        <div class="tienda-grid">
+
+          <div class="tienda-producto">
+            <span class="tienda-num">01</span>
+            <h3 class="tienda-nombre">El oráculo fotográfico</h3>
+            <p class="tienda-descripcion">Oráculo de 21 imágenes con cuadernillo. Una forma de trabajar con la fotografía desde la intuición y el archivo personal.</p>
+            <span class="tienda-precio">25 €</span>
+            <a href="#" class="tienda-cta">reservar</a>
+          </div>
+
+          <div class="tienda-producto">
+            <span class="tienda-num">02</span>
+            <h3 class="tienda-nombre">Conversaciones conmigo misma</h3>
+            <p class="tienda-descripcion">Primera publicación. Formato acordeón, 29 fotografías entre Cádiz y Berlín. Edición limitada.</p>
+            <span class="tienda-precio">25 €</span>
+            <a href="#" class="tienda-cta">reservar</a>
+          </div>
+
+          <div class="tienda-producto">
+            <span class="tienda-num">03</span>
+            <h3 class="tienda-nombre">Las dos</h3>
+            <p class="tienda-descripcion">El oráculo fotográfico y Conversaciones conmigo misma juntas.</p>
+            <span class="tienda-precio">40 €</span>
+            <a href="#" class="tienda-cta">reservar las dos</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- LISTA -->
     <section id="lista">
       <div class="contenedor">
-        <span class="sec-label"><span class="sec-num">05 ·</span> Lista</span>
+        <span class="sec-label"><span class="sec-num">06 ·</span> Lista</span>
         <p style="font-size:17px; line-height:1.95; max-width:480px; opacity:0.6; margin-bottom:28px;">estoy en un momento de investigación interna pero cada tanto comparto algo. si quieres recibirlo, deja tu correo.</p>
         <form class="formulario-proximamente" action="https://app.kit.com/forms/9535260/subscriptions" method="POST" target="_blank">
           <div class="campo-wrap">
