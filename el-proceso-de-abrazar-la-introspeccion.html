@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El proceso de abrazar la introspección — Fotografía Arteterapéutica</title>
+  <meta name="description" content="Un recorrido biográfico y profesional. Cómo la fotografía fue dejando de ser solo imagen para volverse práctica interior.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @font-face { font-family: 'Cruda'; src: url('Cruda_font_1-Regular.ttf') format('truetype'); font-weight: normal; font-style: normal; }
+    :root { --papel: #FAFAF8; --tinta: #1C1C1A; --linea: rgba(28,28,26,0.15); --acento: #C4621A; --sidebar: 240px; --mono: 'Courier Prime', 'Courier New', monospace; --cruda: 'Cruda', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--papel); color: var(--tinta); font-family: var(--mono); font-size: 17px; line-height: 1.95; -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; }
+    a { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { opacity: 0.5; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar); padding: 24px 32px; display: flex; flex-direction: column; z-index: 100; background: #3f614e; box-shadow: 4px 0 24px rgba(0,0,0,0.18); }
+    .sidebar::before { content: ''; position: absolute; inset: 0; background: image-set(url('hero.webp') type('image/webp'), url('hero.jpg') type('image/jpeg')) center/cover; opacity: 0.75; z-index: 0; }
+    .sidebar > * { position: relative; z-index: 1; }
+    .sidebar-logo { display: block; margin-bottom: 40px; text-decoration: none; }
+    .sidebar-logo img { width: 130%; margin-left: -8%; display: block; mix-blend-mode: normal; filter: invert(1); }
+    .sidebar-logo:hover { opacity: 1; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .nav-grupo { margin-bottom: 16px; }
+    .nav-item { display: flex; align-items: baseline; gap: 10px; text-decoration: none; padding: 5px 0; line-height: 1.3; }
+    .nav-num { font-size: 10px; font-style: italic; color: rgba(255,255,255,0.30); flex-shrink: 0; width: 16px; }
+    .nav-nombre { font-size: 15px; color: #fff; transition: color 0.15s; }
+    .nav-item:hover .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-item.activo .nav-nombre { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .sidebar-volver { font-size: 11px; font-style: italic; color: rgba(255,255,255,0.50); text-decoration: none; margin-top: auto; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); display: block; }
+    .sidebar-volver:hover { color: #fff; }
+    .contenido { margin-left: var(--sidebar); flex: 1; min-width: 0; }
+    .post-header { padding: 80px 56px 56px; border-bottom: 1px solid var(--linea); max-width: 700px; }
+    .post-meta { display: flex; align-items: baseline; gap: 20px; margin-bottom: 32px; }
+    .post-etiqueta { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--acento); text-decoration: none; }
+    .post-etiqueta:hover { opacity: 0.6; }
+    .post-fecha { font-size: 12px; font-style: italic; opacity: 0.35; }
+    .post-titulo { font-family: var(--cruda); font-size: clamp(52px, 8vw, 96px); font-weight: normal; text-transform: uppercase; line-height: 0.52; margin-bottom: 32px; }
+    .post-extracto { font-size: 16px; line-height: 1.85; opacity: 0.55; max-width: 520px; }
+    .post-cuerpo { padding: 56px 56px 80px; max-width: 700px; }
+    .post-cuerpo p { margin-bottom: 1.6em; }
+    .post-cuerpo p:last-child { margin-bottom: 0; }
+    .post-cuerpo h3 { font-family: var(--cruda); font-size: clamp(34px, 5vw, 50px); font-weight: normal; text-transform: uppercase; line-height: 0.9; margin: 2.4em 0 1em; opacity: 0.85; }
+    .post-cuerpo blockquote { border-left: 2px solid var(--acento); padding-left: 20px; margin: 2em 0; font-style: italic; opacity: 0.7; }
+    .post-cuerpo strong { font-weight: 700; }
+    .post-suscripcion { padding: 48px 56px; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); max-width: 700px; }
+    .suscripcion-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acento); margin-bottom: 10px; }
+    .suscripcion-texto { font-size: 15px; line-height: 1.7; opacity: 0.6; max-width: 440px; margin-bottom: 24px; }
+    .suscripcion-wrap { display: flex; max-width: 360px; border: 1px solid var(--linea); }
+    .suscripcion-wrap input[type="email"] { flex: 1; font-family: var(--mono); font-size: 14px; background: transparent; border: none; padding: 10px 14px; color: var(--tinta); outline: none; }
+    .suscripcion-wrap input[type="email"]::placeholder { opacity: 0.3; }
+    .suscripcion-wrap button { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: var(--tinta); color: var(--papel); border: none; padding: 10px 18px; cursor: pointer; transition: opacity 0.2s; }
+    .suscripcion-wrap button:hover { opacity: 0.7; }
+    .suscripcion-nota { font-size: 12px; font-style: italic; opacity: 0.35; margin-top: 10px; display: block; }
+    .post-nav { border-top: 1px solid var(--linea); padding: 32px 56px; display: flex; justify-content: space-between; align-items: baseline; max-width: 700px; }
+    .post-nav a { font-size: 12px; font-style: italic; opacity: 0.4; text-decoration: none; }
+    .post-nav a:hover { opacity: 1; }
+    footer { padding: 40px 56px; border-top: 1px solid var(--linea); display: flex; justify-content: space-between; align-items: baseline; }
+    .footer-nombre { font-size: 11px; font-weight: 700; opacity: 0.3; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 11px; opacity: 0.3; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.7; }
+    @media (max-width: 720px) {
+      body { flex-direction: column; }
+      .sidebar { position: static; width: 100%; padding: 20px 24px; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      .sidebar-logo { margin-bottom: 0; }
+      .sidebar-volver { border-top: none; padding-top: 0; margin-top: 0; }
+      .sidebar-nav { flex-direction: row; gap: 16px; width: 100%; }
+      .nav-grupo { margin-bottom: 0; }
+      .nav-num { display: none; }
+      .nav-nombre { font-size: 12px; }
+      .contenido { margin-left: 0; }
+      .post-header { padding: 48px 24px 40px; }
+      .post-cuerpo { padding: 40px 24px 64px; }
+      .post-suscripcion { padding: 40px 24px; }
+      .post-nav { padding: 24px; }
+      footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo"><img src="logo_fat.png" alt="Fotografía Arteterapéutica"></a>
+    <nav class="sidebar-nav">
+      <div class="nav-grupo">
+        <a href="index.html" class="nav-item"><span class="nav-num">00</span><span class="nav-nombre">inicio</span></a>
+        <a href="index.html#propuestas" class="nav-item"><span class="nav-num">02</span><span class="nav-nombre">propuestas</span></a>
+        <a href="index.html#sobre" class="nav-item"><span class="nav-num">03</span><span class="nav-nombre">sobre</span></a>
+        <a href="blog.html" class="nav-item nav-titulo activo"><span class="nav-num">04</span><span class="nav-nombre">ensayos</span></a>
+      </div>
+    </nav>
+    <a href="blog.html" class="sidebar-volver">← ensayos</a>
+  </aside>
+
+  <main class="contenido">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <a href="blog.html?filtro=práctica" class="post-etiqueta">práctica</a>
+        <span class="post-fecha">diciembre 2024</span>
+      </div>
+      <h1 class="post-titulo">El proceso<br>de abrazar<br>la introspección</h1>
+      <p class="post-extracto">Un recorrido biográfico y profesional. Cómo la fotografía fue dejando de ser solo imagen para volverse práctica interior.</p>
+    </header>
+
+    <article class="post-cuerpo">
+
+      <p>Toda mi vida fui introspectiva aunque no le puse ese nombre hasta hace unos años que abracé y apropié del término. Definimos Introspección como "Mirada interior que se dirige a los propios actos o estados de ánimo", y mirando atrás, veo claramente cuándo comencé a darle espacio a todo esto.</p>
+
+      <h3>Un poco de contexto</h3>
+
+      <p>Primero un dato esencial, nací en los 80. Eso, además de hablar de mi edad, deja ver que nací en una época en la que aún vivíamos muy analógicamente. Fui testigo —y qué alegría me genera esto— del cambio tecnológico, pudiendo utilizar teléfonos de los de rueda y hablar con mis amigas durante horas por este medio. También fui testigo de cómo llegó poco a poco el Internet a nuestras vidas, sin dejar de disfrutar una niñez de jugar en la calle, en el parque, trepar árboles y "hablarnos" por unas latas conectadas por cables.</p>
+
+      <p>En esas épocas —y aún hoy— mis diarios eran mis refugios más preciados. Las agendas eran símbolo del disfrute creativo, y entre amigas nos las pasábamos para intervenir "artísticamente" los universos íntimos de las otras.</p>
+
+      <p>Los 90 fueron bastante guapos, viviendo esa transición a un mundo más tecnológico: Internet en casa, poder buscar en "altavista" imágenes de las series de Nickelodeon que me gustaban. Llegada la adolescencia el chat, terminando el colegio el fotolog, comenzando la uni el msn, entrada la adultez el facebook y luego instagram.</p>
+
+      <p>Y justo cuando este último comenzaba su vida, migré. Cambié de hábitat por completo, y lo seguí haciendo. Solo que desde este nuevo momento siempre con un nuevo punto en común: nunca me alejé de la naturaleza.</p>
+
+      <p>De pasar de vivir en dos ciudades grandísimas —una de ellas Buenos Aires— a un pueblo de poco más que 12 manzanas. Ahí comenzó todo. Ahí se generó la grieta por la que la introspección comenzó a ganar terreno dentro y fuera de mí.</p>
+
+      <h3>Integrar la introspección como un estilo de vida</h3>
+
+      <p>Migrar es cambiar de territorio por completo, es una verdadera hoja en blanco. Migré sin darme cuenta porque "estaba viajando", aunque el registro de sentir que sería un viaje sin retorno llegó a los pocos días de tocar tierra firme.</p>
+
+      <p>Sin embargo, no lo pensé tanto, estaba ocupada viviendo, sintiendo, deconstruyéndome para luego, como quien recicla la cera derretida, volver a armarme.</p>
+
+      <p>Eran tiempos de euforia y emoción, conociendo un mundo nuevo. Literal y simbólicamente hablando. Todo era una novedad, y entre tanto input el contexto traía lo que iba necesitando: entre otras cosas, momentos de introspección.</p>
+
+      <p>Tenía momentos de introspección —y gratitud— cuando veía la nieve cayendo por la ventana, desde adentro, con mi mate calentito. Tenía momentos de introspección cuando recorría la montaña nevada, deslizándome por la nieve suelta bajo el sol. Tenía momentos de introspección sentada en una silla, mirando a mi alrededor y solo ver picos nevados, desde las alturas. Y tenía momentos de introspección cuando entre completos desconocidos comenzaba a poner la atención en cómo me sentía yo.</p>
+
+      <p>Desde ese inicio todo fue a mejor. La brújula se fue calibrando cada vez más para el lado del bien, el cuerpo estuvo progresivamente disponible y así también el Adentro.</p>
+
+      <p>Esa introspección comenzó a ser guía, impulsándome a explorar entornos: montañas, bosques y mares; a nutrirme de y con personas, actividades, profesiones, pasiones y destinos. Desde entonces, la introspección es en parte mi estilo de vida.</p>
+
+      <h3>Integrar la introspección como herramienta</h3>
+
+      <p>Llegué a esta parte del atlántico con mi cámara como compañera personal y profesional. Y si bien desde el momento cero tuve la suerte de trabajar como fotógrafa, fue recién años después que encontré la forma de disfrutar monetizando y vendiendo mis fotografías.</p>
+
+      <p>El camino hasta este momento fue de mucha contradicción y autodescubrimiento porque me costaba entender que algo que me apasionaba tanto y en lo que sabía tenía cierto talento, fuera tan difícil de darle el valor económico que tenía.</p>
+
+      <p>Siempre oscilaba entre la certidumbre de que la fotografía ERA MI CAMINO y el vacío existencial por no ENCONTRAR LA FORMA DE DISFRUTARLO.</p>
+
+      <p>Esta búsqueda fue nutritiva, y decantó en mi HOY, no definiéndome como "fotógrafa" a secas, simplemente utilizando mi fotografía para distintos fines, con varios objetivos, aportando valor desde perspectivas variadas.</p>
+
+      <p>La introspección fue pieza clave en este proceso.</p>
+
+      <h3>3 formas de usar la introspección como guía</h3>
+
+      <p><strong>A nivel profesional</strong>, para mí fue clave el ir construyendo un registro de "disfrute" profesional. Al principio no fue fácil porque aceptaba trabajos que no me apetecían solo porque tenía la idea de que "ser fotógrafa" implicaba hacer fotos, y que daba igual de qué tipo de fotos se trataba.</p>
+
+      <p>Así comencé, haciendo fotos en un centro de ski, muerta de frío y poniendo mi cámara —y un poco la vida— en juego entre tanto esquiador veloz o inexperto. También hice fotografías de eventos que poco me gustan y trabajé en moda, cosa que —salvo que sean marcas conscientes— no me encanta en lo más mínimo.</p>
+
+      <p>Cuando entendí lo que sí me generaba placer hacer —qué cosas fotografiar, con qué tipo de personas trabajar, en qué entornos moverme y qué dinámicas habitar— entonces mi trabajo fotográfico comenzó a mejorar. La introspección en este caso fue todo.</p>
+
+      <p><strong>A nivel expresivo</strong> fue una cuestión de confianza, sentido común y entretejido de hilos. En este caso me sirvió mucho el viaje hacia el adentro y en el tiempo: recordar qué cosas me hacían feliz y ayudaban de pequeña. Recordar que las agendas, los diarios y cuadernos están ahí desde siempre, me hizo reivindicar este medio hoy en día como complemento de mi expresión personal.</p>
+
+      <p>La migración y el estar viajando y moviéndome mucho hizo que tuviera que abandonar cuadernos, diarios y anotaciones varias en el camino.</p>
+
+      <p>Yo siempre supe lo valioso de volver a las escrituras, por eso algunas notas del 2008 en adelante aún las sigo guardando, pero fue recién en 2021 que me propuse no volver a dejar notas importantes fuera de la estructura de un cuaderno y cuidarles, tanto que son parte de mi biblioteca, listas para volver a ellas cuando necesita o quiera viajar por mi interior.</p>
+
+      <p>La introspección es una práctica cotidiana, y a través de la escritura puedo darle sentido a todo, ordenar, registrar pero también volver a ella siempre que lo quiera.</p>
+
+      <p><strong>A nivel artístico</strong> ha sido y es mi ingrediente preferido y esencial. Para mí fue clave entender que mi identidad y "unicidad" es lo mejor que tengo para ofrecer, eso que me representa y diferencia de otra. No por hacer cosas más originales o mejores sino por honrar mi esencia, lo que tengo para contar y compartir.</p>
+
+      <p>No será grandioso para todos —eso ya dejó de importarme— pero tal vez, respetando y honrando mi genuina necesidad y deseo personal de expresarme y compartir, llegue a alguien que también le hace bien.</p>
+
+      <p>Este posible círculo es últimamente lo único que inspira e importa. Dejar de apelar a las masas. ¿Cómo es que nos dejamos convencer tan fácilmente de que necesitamos a 10K de personas "consumiéndonos"?</p>
+
+      <p><strong>¿Qué papel crees que tiene la introspección en tu vida?</strong></p>
+
+    </article>
+
+    <div class="post-suscripcion">
+      <span class="suscripcion-label">Lista</span>
+      <p class="suscripcion-texto">estoy en un momento de investigación interna pero cada tanto comparto algo. si quieres recibirlo, deja tu correo.</p>
+      <form action="https://app.kit.com/forms/9535260/subscriptions" method="POST" target="_blank">
+        <div class="suscripcion-wrap">
+          <input type="email" name="email_address" placeholder="tu email" required>
+          <button type="submit">apuntarme</button>
+        </div>
+        <span class="suscripcion-nota">Sin frecuencia fija. Sin spam.</span>
+      </form>
+    </div>
+
+    <nav class="post-nav">
+      <a href="los-rituales-que-me-construyen.html">← Los rituales que me construyen</a>
+      <a href="blog.html">todos los ensayos</a>
+      <a href="crear-y-criar.html">Crear y criar →</a>
+    </nav>
+
+    <footer>
+      <a href="index.html" class="footer-nombre">fotografía arteterapéutica</a>
+      <div class="footer-links">
+        <a href="index.html#propuestas">propuestas</a>
+        <a href="https://luciacruda.com" target="_blank" rel="noopener">obra</a>
+        <a href="mailto:hola@fotografiaarteterapeutica.com">contacto</a>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>
